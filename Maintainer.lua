@@ -1,19 +1,25 @@
 local ae2 = require("src.AE2")
-local cfg = require("config")
-local util = require("src.Utility") 
+local serialization = require("serialization")
+ 
+local cfg = {}
+local sleepInterval = 60
 
-local items = cfg.items
-local sleepInterval = cfg.sleep
- 
-while true do
-    local itemsCrafting = ae2.checkIfCrafting()
- 
-    for item, config in pairs(items) do
-        if itemsCrafting[item] ~= true then
-            local success, answer = ae2.requestItem(item, config[1], config[2])
-            logInfo(answer)
-        end
- 
+local function load()
+    local file = io.open("/home/MaintainerList", "r")
+    if file then
+        cfg["items"] = serialization.unserialize(file:read("*a")) or {}
+        file:close()
     end
-    os.sleep(sleepInterval)
+end
+
+load()
+
+while true do
+  local itemsCrafting = ae2.checkIfCrafting()
+  for item, config in pairs(cfg.items) do
+    if itemsCrafting[item] ~= true then
+      ae2.requestItem(item, config[1], config[2])
+    end 
+  end
+  os.sleep(sleepInterval)
 end

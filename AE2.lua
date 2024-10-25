@@ -3,6 +3,8 @@ local ME = component.me_interface
 
 local AE2 = {}
 
+local inCraft = {}
+
 function AE2.requestItem(name, threshold, count)
     craftables = ME.getCraftables({
         ["label"] = name
@@ -15,7 +17,7 @@ function AE2.requestItem(name, threshold, count)
                 ["label"] = name        
             })
             if (#itemInSystem > 0 and itemInSystem[1]["size"] > threshold) then 
-                return table.unpack({false, "The amount of " .. itemInSystem[1]["label"] .. " exceeds threshold! Aborting request."})
+                return 
             end
         end
         if item.label == name then
@@ -25,9 +27,12 @@ function AE2.requestItem(name, threshold, count)
                 os.sleep(1)
             end
             if craft.hasFailed() then
-                return table.unpack({false, "Failed to request " .. name .. " x " .. count})
+                print("Failed to request " .. name .. " x " .. count)
+                return
             else
-                return table.unpack({true, "Requested " .. name .. " x " .. count})
+                inCraft[name] = craft
+                print("Requested " .. name .. " x " .. count)
+                return
             end
 
         end
@@ -36,16 +41,16 @@ function AE2.requestItem(name, threshold, count)
 end
 
 function  AE2.checkIfCrafting()
-    local cpus = ME.getCpus()
-    local items = {}
-    for k, v in pairs(cpus) do
-        local finaloutput = v.cpu.finalOutput()
-        if finaloutput ~= nil then
-            items[finaloutput.label] = true
-        end
+    for name, craft in pairs(inCraft) do
+      if craft.isDone() then
+        print(name, "is Done!")
+        inCraft[name] = nil
+      elseif craft.isCanceled() then
+        print(name, "is Canceled!")
+        inCraft[name] = nil
+      end
     end
-
-    return items
+    return inCraft
 end
 
 return AE2

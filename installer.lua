@@ -1,21 +1,13 @@
 local shell = require("shell")
 local filesystem = require("filesystem")
-local scripts = {"src/AE2.lua", "src/Utility.lua", "Maintainer.lua"}
-
-local paths = {"src", "lib"}
+local scripts = {"AE2.lua", "Maintainer.lua"}
 
 local function exists(filename)
     return filesystem.exists(shell.getWorkingDirectory() .. "/" .. filename)
 end
 
-local repo = "https://raw.githubusercontent.com/Niels1006/Infinite-Maintainer/";
+local repo = "https://raw.githubusercontent.com/lordIcocain/Level-Maintainer/";
 local branch = "master"
-
-for i = 1, #paths do
-    if not filesystem.exists(shell.getWorkingDirectory() .. "/" .. paths[i]) then
-        filesystem.makeDirectory(shell.getWorkingDirectory() .. "/" .. paths[i]);
-    end
-end
 
 for i = 1, #scripts do
     if exists(scripts[i]) then
@@ -25,8 +17,8 @@ for i = 1, #scripts do
     shell.execute(string.format("wget %s%s/%s %s", repo, branch, scripts[i], scripts[i]));
 end
 
-if not exists("config.lua") then
-    shell.execute(string.format("wget %s%s/config.lua", repo, branch));
+if not exists("MaintainerList") then
+    shell.execute(string.format("wget %s%s/MaintainerList", repo, branch));
 end
 
 shell.execute("reboot");
