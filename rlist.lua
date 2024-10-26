@@ -72,6 +72,7 @@ end
 local function editList()
   print("Select Pattern:")  
   local n = 0
+  local m =0
   local match = {}
   local size = 0
   for _, _ in pairs(MaintainerList) do
@@ -79,8 +80,8 @@ local function editList()
   end
   for int, _ in pairs(MaintainerList) do
     n = n + 1
-    match[n] = int
-    print("["..n.."] "..int)
+    match[m] = int
+    print("["..m.."] "..int)
     if n == 30 or n == size then
       print("Select: or Nothing for next page")
       io.write('')
@@ -89,7 +90,7 @@ local function editList()
       if answer == nil then
         n = 0
       else
-        print(int)
+        print(match[answer])
         MaintainerList[match[answer]] = ioAddEdit()
         break
       end
@@ -112,6 +113,7 @@ local function deleteFromList()
       print("Select: or Nothing for next page")
       io.write('')
       MaintainerList[match[tonumber(io.read())]] = nil
+      print(match[tonumber(io.read())].." is Deleted!")
     end
   end
 end

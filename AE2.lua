@@ -21,6 +21,9 @@ function AE2.requestItem(name, threshold, count)
             end
         end
         if item.label == name then
+            if item.size > count then
+                count = item.size
+            end
             local craft = craftables[1].request(count)
 
             while craft.isComputing() == true do
