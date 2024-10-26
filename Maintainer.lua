@@ -17,7 +17,7 @@ load()
 while true do
   local itemsCrafting = ae2.checkIfCrafting()
   for item, config in pairs(cfg.items) do
-    if itemsCrafting[item] ~= true then
+    if itemsCrafting[item] == nil then
       ae2.requestItem(item, config[1], config[2])
     end 
   end
