@@ -40,8 +40,23 @@ local function ioAddEdit()
 end
 
 local function addToList()
-  local patterns = ME.getCraftables()
-  print("Select Pattern:")  
+  print("Type pattern name or nothing for get whole list")
+  print("Liquid craft looks like: 'drop of Water'")
+  io.write('')
+  local pattern_name = io.read()
+  local patterns
+  if pattern_name ~= "" then
+    patterns = ME.getCraftables({
+      ["label"] = pattern_name
+    })
+    if #patterns == 0 then
+      print("Incorrect!")
+      return
+    end
+  else
+    patterns = ME.getCraftables()
+  end
+  print("Select Pattern:")
   local n = 0;
 
   for int, val in pairs(patterns) do
@@ -60,7 +75,7 @@ local function addToList()
         n = 0
       else
         local name = patterns[answer].getItemStack()
-        print(name.label)        
+        print(name.label)
         MaintainerList[name.label] = ioAddEdit()
         break
       end
@@ -91,9 +106,9 @@ local function editList()
         n = 0
       else
         print(match[answer])
-        print("Current Threshold:batch")
-        for i,v in pairs(MaintainerList[match[answer]]) do
-          print(i..":"..v)
+        print("Current Threshold/batch")
+        for _,v in pairs(MaintainerList[match[answer]]) do
+          print(v)
         end
         MaintainerList[match[answer]] = ioAddEdit()
         break
