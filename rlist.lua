@@ -45,7 +45,6 @@ local function addToList()
   io.write('')
   local pattern_name = io.read()
   local patterns
-  local answer
   if pattern_name ~= "" then
     patterns = ME.getCraftables({
       ["label"] = pattern_name
@@ -54,8 +53,6 @@ local function addToList()
       print("Incorrect!")
       return
     end
-    answer = 1
-    goto skip_select
   else
     patterns = ME.getCraftables()
   end
@@ -72,8 +69,7 @@ local function addToList()
     if n == 30 or int == #patterns then
       print('Select: or Nothing for next page')
       io.write('')
-      answer = tonumber(io.read())
-      ::skip_select::
+      local answer = tonumber(io.read())
       term.clear()
       if answer == nil then
         n = 0
