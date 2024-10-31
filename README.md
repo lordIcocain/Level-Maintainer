@@ -17,6 +17,12 @@ Run it
 Maintainer
 ```
 
+Set check interval
+change local sleepInterval = 60 --Seconds
+```bash
+edit Maintainer.lua
+```
+
 # Config
 Edit maintainer list
 ```bash
