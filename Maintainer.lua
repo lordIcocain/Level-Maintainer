@@ -1,4 +1,4 @@
-local ae2 = require("src.AE2")
+local ae2 = require("AE2")
 local serialization = require("serialization")
  
 local cfg = {}
