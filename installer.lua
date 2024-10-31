@@ -1,6 +1,6 @@
 local shell = require("shell")
 local filesystem = require("filesystem")
-local scripts = {"AE2.lua", "Maintainer.lua"}
+local scripts = {"AE2.lua", "Maintainer.lua", "rlist.lua"}
 
 local function exists(filename)
     return filesystem.exists(shell.getWorkingDirectory() .. "/" .. filename)
