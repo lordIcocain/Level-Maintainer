@@ -91,6 +91,10 @@ local function editList()
         n = 0
       else
         print(match[answer])
+        print("Current Threshold:batch")
+        for i,v in pairs(MaintainerList[match[answer]]) do
+          print(i..":"..v)
+        end
         MaintainerList[match[answer]] = ioAddEdit()
         break
       end
