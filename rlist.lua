@@ -88,7 +88,7 @@ end
 local function editList()
   print("Select Pattern:")  
   local n = 0
-  local m =0
+  local m = 0
   local match = {}
   local size = 0
   for _, _ in pairs(MaintainerList) do
@@ -96,6 +96,7 @@ local function editList()
   end
   for int, _ in pairs(MaintainerList) do
     n = n + 1
+    m = m + 1
     match[m] = int
     print("["..m.."] "..int)
     if n == 30 or n == size then
