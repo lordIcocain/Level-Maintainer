@@ -99,7 +99,7 @@ local function editList()
     m = m + 1
     match[m] = int
     print("["..m.."] "..int)
-    if n == 30 or n == size then
+    if n >= 30 or n == size then
       print("Select: or Nothing for next page")
       io.write('')
       local answer = tonumber(io.read())
